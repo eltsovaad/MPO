@@ -24,7 +24,7 @@ int is_equal(Contact* head, char data[][25]);
 void del_ed(Contact_list* edit_head);
 Contact* my_swap(Contact*&head, Contact* el1, Contact* el2);
 void save_base(char name_base[], struct Contact *head);
-void tips();
+char* tips();
 void info();
 
 struct Contact
@@ -246,6 +246,50 @@ char* in_data(char data[][25], int flag) {
 	//написать is_equal
 	char* data_p = &data[0][0];
 	return data_p;
+}
+
+char* tips() {
+	char name_base[20];
+
+	ifstream f;
+	f.open(name_base);
+	if (f.fail() || !f.is_open()) {
+		f.close();
+		cout << "Не найдена база советов" << endl;
+	}
+	while (!f.eof()) {
+		f.getline(data[0], 25, '#');
+		if (f.fail() || data[0][0] == '\0') {
+			f.clear();
+			//f.ignore(f.rdbuf()->in_avail());
+			f.ignore(100, '\n');
+			flag_err = 1;
+		}
+		f.getline(data[1], 25, '#');
+		if (f.fail() || data[1][0] == '\0') {
+			f.clear();
+			//f.ignore(f.rdbuf()->in_avail());
+			f.ignore(100, '\n');
+			flag_err = 1;
+		}
+		f.getline(data[2], 25, '\n');
+		if (f.fail() || data[2][0] == '\0') {
+			f.clear();
+			//f.ignore(f.rdbuf()->in_avail());
+			f.ignore(100, '\n');
+			flag_err = 1;
+		}
+		if (flag_err == 0) {
+			add_el(head, data);
+		}
+		else {
+			if ((data[0][0] == '\0') && (data[1][0] == '\0') && (data[2][0] == '\0')) {
+				break;
+			}
+			cout << "Ошибка при чтении строчки " << n << " базы данных. Строка будет пропущена" << endl;
+		}
+		n++;
+	}
 }
 
 void edit(Contact *head)//изменение элемента
