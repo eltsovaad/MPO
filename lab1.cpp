@@ -25,7 +25,7 @@ int is_equal(Contact* head, char data[][25]);
 void del_ed(Contact_list* edit_head);
 Contact* my_swap(Contact*&head, Contact* el1, Contact* el2);
 void save_base(char name_base[], struct Contact *head);
-char* tips(char st_tips[10][50]);
+char* tips(char st_tips[][100]);
 void info();
 
 struct Contact
@@ -198,8 +198,9 @@ int check_menu(int menu, int num) {
 }
 
 char* in_data(char data[][25], int flag) {
-	//flag==0 - добавление элемента ==1 - поиск по отправлению 
-	//==2 - поиск по назначению ==3 - по номеру
+	/*Функция для ввода данных в список*/
+	//flag==0 - добавление элемента ==1 - поиск имени 
+	//==2 - поиск по номеру ==3 - по группе
 	std::locale loc("Russian_Russia.1251");
 	cin.clear();
 	cin.ignore(cin.rdbuf()->in_avail());
@@ -244,12 +245,12 @@ char* in_data(char data[][25], int flag) {
 			cin.getline(data[2], 25, '\n');
 		}
 	}
-	//написать is_equal
 	char* data_p = &data[0][0];
 	return data_p;
 }
 
 char* tips(char st_tips[][100]) {
+	/*Функция, формирующая массив советов из базы по адресу name_base*/
 	char name_base[60] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\tips.txt";
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 100; j++) {
@@ -274,7 +275,8 @@ char* tips(char st_tips[][100]) {
 	return &st_tips[0][0];
 }
 
-void edit(Contact *head)//изменение элемента
+void edit(Contact *head)
+//изменение элемента списка
 {
 	if (head == NULL) {
 		cout << "Список маршрутов пуст!" << endl;
@@ -359,7 +361,8 @@ int is_equal(Contact* head, char data[][25]) {
 
 
 
-struct Contact_list* search(struct Contact* head, int flag, int &k)//поиск элемента
+struct Contact_list* search(struct Contact* head, int flag, int &k)
+	//поиск элемента в списке
 {//flag 0 - поиск с выводом, 1 - поиск для del и edit
 	if (head == NULL) {
 		cout << "Список маршрутов пуст!" << endl;
@@ -516,9 +519,9 @@ Contact* my_swap(Contact*&head, Contact* el1, Contact* el2) {
 }
 
 void sort(Contact* &head, int flag) {
-	//функция сортировки
+	//функция сортировки списка
 	//с помощью flag выбирается способ сортировки
-	//1 - по отправлению, 2 - по прибытию, 3 - по номеру
+	//1 - по имени, 2 - по номеру, 3 - по группе
 	Contact* temp;
 	int k = 0;//количество элементов в массиве
 	temp = head;
@@ -692,6 +695,7 @@ void sort(Contact* &head, int flag) {
 }
 
 void list_out(Contact* head) {
+	/*Вывод списка на экран*/
 	if (head == NULL) {
 		cout << "Список маршрутов пуст!" << endl;
 	}
@@ -720,6 +724,9 @@ void list_out(Contact* head) {
 
 
 void load_from_base(char name_base[], struct Contact *&head) {
+	/*Производит выгрузку контактов из текстовой базы, расположенной в name_base. Контакты представляются
+	в виде линейного однонаправленного списка и именно в таком виде программа продолжает
+	дальнейшую работу с этими данными*/
 	struct Contact *temp;
 	temp = head;
 	char first = 0;
@@ -829,6 +836,7 @@ void load_from_base(char name_base[], struct Contact *&head) {
 }
 
 void save_base(char name_base[], struct Contact *head) {
+	/*Сохраняет базу контактов в тектовый файл name_base*/
 	Contact*temp;
 	ofstream fout;
 	fout.open(name_base);
@@ -871,6 +879,7 @@ void del_all(struct Contact *head) {
 }
 
 void info() {
+	/*Информация о разработчике и программе*/
 	cout << "Программа разработана Ельцовой Анастасией" << endl;
 	cout << "ГУАП гр. 4731 в качестве курсового проекта в 2018 году" << endl;
 	cout << "и дополнена для соответсвия критериям ЛР1 по МПО в 2019" << endl;
