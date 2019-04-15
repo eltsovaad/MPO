@@ -1,10 +1,11 @@
 #include <fstream>
 #include <iostream>
-#include<locale>
+#include <locale>
 #include "Windows.h"
 #include "string.h"
 #include "stdio.h"
 #include <cctype>
+#include <ctime>
 
 using namespace std;
 void load_from_base(char name_base[], struct Contact *&head);
@@ -24,7 +25,7 @@ int is_equal(Contact* head, char data[][25]);
 void del_ed(Contact_list* edit_head);
 Contact* my_swap(Contact*&head, Contact* el1, Contact* el2);
 void save_base(char name_base[], struct Contact *head);
-void tips();
+void tips(char st_tips[10][50]);
 void info();
 
 struct Contact
@@ -246,6 +247,29 @@ char* in_data(char data[][25], int flag) {
 	//написать is_equal
 	char* data_p = &data[0][0];
 	return data_p;
+}
+
+void tips(char st_tips[][50]) {
+	char name_base[20];
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 50; j++) {
+			st_tips[i][j] = '\0';
+		}
+	}
+	ifstream f;
+	f.open(name_base);
+	if (f.fail() || !f.is_open()) {
+		f.close();
+		cout << "Не найдена база советов" << endl;
+	}
+	for (int i = 0; i < 10; i++) {
+		f.getline(st_tips[0], 50, '#');
+		if (f.fail() || st_tips[0][0] == '\0') {
+			f.clear();
+			//f.ignore(f.rdbuf()->in_avail());
+			f.ignore(100, '\n');
+		}
+	}
 }
 
 void edit(Contact *head)//изменение элемента
@@ -977,7 +1001,11 @@ int main() {
 			break;
 		}
 		case 9: {
-			tips();
+			char st_tips[10][50];
+			tips(st_tips);
+			srand(time(0));
+			int a = rand() % 10;
+			cout << *st_tips[a];
 			break;
 		}
 		case 10: {
