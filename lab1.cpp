@@ -25,7 +25,7 @@ int is_equal(Contact* head, char data[][25]);
 void del_ed(Contact_list* edit_head);
 Contact* my_swap(Contact*&head, Contact* el1, Contact* el2);
 void save_base(char name_base[], struct Contact *head);
-void tips(char st_tips[10][50]);
+char* tips(char st_tips[10][50]);
 void info();
 
 struct Contact
@@ -249,10 +249,10 @@ char* in_data(char data[][25], int flag) {
 	return data_p;
 }
 
-void tips(char st_tips[][50]) {
+char* tips(char st_tips[][100]) {
 	char name_base[60] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\tips.txt";
 	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 50; j++) {
+		for (int j = 0; j < 100; j++) {
 			st_tips[i][j] = '\0';
 		}
 	}
@@ -263,13 +263,15 @@ void tips(char st_tips[][50]) {
 		cout << "Не найдена база советов" << endl;
 	}
 	for (int i = 0; i < 10; i++) {
-		f.getline(st_tips[0], 50, '#');
+		f.getline(st_tips[i], 100, '#');
 		if (f.fail() || st_tips[0][0] == '\0') {
 			f.clear();
+			cout << "Совет " << i << " пропущен" << endl;
 			//f.ignore(f.rdbuf()->in_avail());
-			f.ignore(100, '\n');
+			f.ignore(200, '\n');
 		}
 	}
+	return &st_tips[0][0];
 }
 
 void edit(Contact *head)//изменение элемента
@@ -890,7 +892,7 @@ int main() {
 	//setlocale(LC_ALL, "Russian_Russia.1251");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	char name_base[100] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\tips.txt";
+	char name_base[100] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\base.txt";
 	cout << "Загрузка базы данных по умолчанию..." << endl;
 	Contact *head = NULL;
 	char data[3][25];
@@ -923,6 +925,7 @@ int main() {
 
 		switch (menu) {
 		case 1: {
+			system("cls");
 			int flag = 0;
 			data_p = in_data(data, 0);
 			flag = is_equal(head, data);
@@ -947,23 +950,28 @@ int main() {
 			break;
 		}
 		case 2: {
+			system("cls");
 			edit(head);
 			break;
 		}
 		case 3: {
+			system("cls");
 			int k = 1;
 			search(head, 0, k);
 			break;
 		}
 		case 4: {
+			system("cls");
 			del_el(head);
 			break;
 		}
 		case 5: {
+			system("cls");
 			list_out(head);
 			break;
 		}
 		case 6: {
+			system("cls");
 			if (head != NULL) {
 				int menu_s = 0;
 				cout << "Выберите способ сортировки: " << endl;
@@ -982,6 +990,7 @@ int main() {
 			break;
 		}
 		case 7: {
+			system("cls");
 			int menu_v = 0;
 			cout << "Внимание, все не сохраненные данные будут потеряны, при выборе новой базы!" << endl;
 			cout << "Сохранить изменения?" << endl;
@@ -1000,22 +1009,27 @@ int main() {
 			break;
 		}
 		case 8: {
+			system("cls");
 			save_base(name_base, head);
 			break;
 		}
 		case 9: {
-			char st_tips[10][50];
-			tips(st_tips);
+			system("cls");
+			char st_tips[10][100];
+			char* p_tips = &st_tips[0][0];
+			p_tips=tips(st_tips);
 			srand(time(0));
 			int a = rand() % 10;
-			cout << *st_tips[a]<<endl;
+			cout << st_tips[a]<<endl;
 			break;
 		}
 		case 10: {
+			system("cls");
 			info();
 			break;
 		}
 		case 11: {
+			system("cls");
 			int menu_v = 0;
 			cout << "Сохранить изменения?" << endl;
 			cout << "1. Да" << endl;
