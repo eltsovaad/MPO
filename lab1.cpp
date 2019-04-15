@@ -692,6 +692,9 @@ void list_out(Contact* head) {
 	}
 }
 
+void tips() {
+
+}
 
 void load_from_base(char name_base[], struct Contact *&head) {
 	struct Contact *temp;
