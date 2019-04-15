@@ -871,6 +871,12 @@ void del_all(struct Contact *head) {
 	}
 }
 
+void info() {
+	cout << "Программа разработана Ельцовой Анастасией" << endl;
+	cout << "ГУАП гр. 4731 в качестве курсового проекта в 2018 году" << endl;
+	cout << "и дополнена для соответсвия критериям ЛР1 по МПО в 2019" << endl;
+}
+
 void leakes() {
 	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
 	_CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDOUT);
@@ -1005,7 +1011,7 @@ int main() {
 			tips(st_tips);
 			srand(time(0));
 			int a = rand() % 10;
-			cout << *st_tips[a];
+			cout << *st_tips[a]<<endl;
 			break;
 		}
 		case 10: {
