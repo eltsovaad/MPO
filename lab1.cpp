@@ -250,7 +250,7 @@ char* in_data(char data[][25], int flag) {
 }
 
 void tips(char st_tips[][50]) {
-	char name_base[20];
+	char name_base[60] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\tips.txt";
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 50; j++) {
 			st_tips[i][j] = '\0';
@@ -279,7 +279,7 @@ void edit(Contact *head)//изменение элемента
 	}
 	else {
 		char data[3][25];
-		struct Contact *edit;
+		struct Contact *edit=NULL;
 		char* data_p = &data[1][1];
 		struct Contact_list *ed, *edit_head;
 		int choice = 1;
@@ -716,9 +716,6 @@ void list_out(Contact* head) {
 	}
 }
 
-void tips() {
-
-}
 
 void load_from_base(char name_base[], struct Contact *&head) {
 	struct Contact *temp;
@@ -893,7 +890,7 @@ int main() {
 	//setlocale(LC_ALL, "Russian_Russia.1251");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	char name_base[100] = "D:\\учеба\\2 курс\\МПО\\base.txt";
+	char name_base[100] = "E:\\users\\eltsova_ad\\Documents\\учеба\\2 курс\\МПО\\tips.txt";
 	cout << "Загрузка базы данных по умолчанию..." << endl;
 	Contact *head = NULL;
 	char data[3][25];
