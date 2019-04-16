@@ -207,16 +207,16 @@ char* in_data(char data[][25], int flag) {
 	if ((flag == 0) || (flag == 1)) {
 		cout << "Введите имя: ";
 		cin.getline(data[0], 24, '\n');
+		while (cin.fail() || data[0][0] == '\0') {
+			cin.clear();
+			cin.ignore(cin.rdbuf()->in_avail());
+			cout << "Имя не должно быть пустым или превышать 25 символов" << endl;
+			cout << "Введите имя повторно: ";
+			cin.getline(data[0], 25, '\n');
+		}
 		if (isupper(data[0][0], loc) == 0) {
 			data[0][0] = (char)toupper(data[0][0]);
 			cout << "Строчная буква преобразована!" << endl;
-		}
-		while (cin.fail() /*|| (isupper(data[0][0], loc) == 0)*/) {
-			cin.clear();
-			cin.ignore(cin.rdbuf()->in_avail());
-			cout << "Имя должно превышать 25 символов" << endl;
-			cout << "Введите имя повторно: ";
-			cin.getline(data[0], 25, '\n');
 		}
 	}
 	if ((flag == 0) || (flag == 2)) {
@@ -226,7 +226,7 @@ char* in_data(char data[][25], int flag) {
 			data[1][0] = (char)toupper(data[1][0]);
 			cout << "Строчная буква преобразована!" << endl;
 		}*/
-		while (cin.fail() || (isdigit(data[1][0], loc) == 0) && (data[1][0] != '+')) {
+		while (cin.fail() || (isdigit(data[1][0], loc) == 0) && (data[1][0] != '+')||(data[1][0] == '\0')) {
 			cin.clear();
 			cin.ignore(cin.rdbuf()->in_avail());
 			cout << "Номер должен содержать цифры и не должен превышать 25 символов" << endl;
